@@ -20,8 +20,8 @@ class TodoService implements ITodoService
         return $this->todoRepository->getProjectTodos($projectId);
     }
 
-    public function saveProjectTodo(TodoDto $todoDto)
+    public function saveProjectTodo(TodoDto $todoDto): TodoDto
     {
-        return $this->todoRepository->saveTodo($todoDto);
+        return (new TodoDto)->fromModel($this->todoRepository->saveTodo($todoDto));
     }
 }

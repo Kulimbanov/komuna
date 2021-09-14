@@ -1,14 +1,16 @@
 <template>
-    <div class="2xl:flex-wrap" :key="project.id">
-        <span v-if="!editing" class="col-6 p-2" @click="showProjectTodos">
+    <div class="flex" :key="project.id">
+        <div v-if="!editing" class="col-6 p-2" @click="showProjectTodos">
             <a href="#" class="text-2xl text-blue-900">{{ project.name }}</a>
-        </span>
-        <span v-if="editing" class="col-6">
-            <input :id="project.id" v-model="project.name"/>
-        </span>
-        <span v-if="!editing" class="col-end-1 p-2 btn btn-info" @click="edit">Edit</span>
-        <span v-if="editing" class="col-end-1 p-2 btn btn-info" @click="updateProject">Update</span>
-        <span v-if="!editing" class="col-end-1 p-2 btn btn-danger" @click="deleteProject">Delete</span>
+        </div>
+        <div v-if="editing" class="col-6">
+            <div class="form-group">
+                <input type="text" class="form-control" :id="project.id" v-model="project.name"/>
+            </div>
+        </div>
+        <span v-if="!editing" class="mr-2 m-auto p-2 btn btn-info" @click="edit">Edit</span>
+        <span v-if="editing" class="mr-2 m-auto p-2 btn btn-info" @click="updateProject">Update</span>
+        <span v-if="!editing" class="mx-2 m-auto p-2 btn btn-danger" @click="deleteProject">Delete</span>
     </div>
 </template>
 

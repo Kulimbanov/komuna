@@ -1,11 +1,11 @@
 <template>
     <div class="submit-form">
-        <div v-if="!submitted">
+        <div v-if="!submitted" class="flex">
             <div class="form-group">
                 <label for="name">Project name:</label>
                 <input
                     type="text"
-                    class="form-control"
+                    class="form-control m-2"
                     id="name"
                     required
                     v-model="project.name"
@@ -13,12 +13,12 @@
                 />
             </div>
 
-            <button @click="saveProject" class="btn btn-success">Submit</button>
+            <button @click="saveProject" class="m-auto mr-2 text-red-700">Submit</button>
         </div>
 
-        <div v-else>
+        <div v-else class="flex">
             <h4>Project is submitted successfully!</h4>
-            <button class="btn btn-success" @click="newProject">Add</button>
+            <button class="m-auto mr-2 text-red-700" @click="newProject">Create new</button>
         </div>
     </div>
 </template>

@@ -10,6 +10,10 @@ use Illuminate\Database\Eloquent\Model;
  * Class Todo
  * @package App\Models
  * @mixin Builder
+ * @property int id
+ * @property int project_id
+ * @property string description
+ * @property string state
  */
 class Todo extends Model
 {

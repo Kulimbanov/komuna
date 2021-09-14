@@ -1,8 +1,8 @@
 <template>
     <div class="card">
-        <div v-if="!submitted">
+        <div v-if="!submitted" class="flex">
             <div class="form-group">
-                <label for="description">Desctiption:</label>
+                <label class="m-2" for="description">Desctiption:</label>
                 <input
                     type="text"
                     class="form-control"
@@ -12,16 +12,21 @@
                     name="description"
                 />
             </div>
-            <input type="radio" v-model="todo.state" id="state" name="state" value="done"/>
-            <label for="state">Done</label>
-            <br>
+            <input class="m-3"
+                   type="checkbox"
+                   v-model="todo.state"
+                   id="state"
+                   true-value="done"
+                   false-value="todo"
+                   name="state"/>
+            <label class="m-3" for="state">Done</label>
 
-            <button @click="addTodo" class="btn btn-success">Submit</button>
+            <button @click="addTodo" class="m-auto mr-2 btn btn-success">Submit</button>
         </div>
 
-        <div v-else>
+        <div v-else class="flex">
             <h4>Todo is added successfully!</h4>
-            <button class="btn btn-success" @click="newTodo">Add more...</button>
+            <button class="m-auto mr-2 btn btn-success" @click="newTodo">Add more...</button>
         </div>
     </div>
 </template>
@@ -50,11 +55,10 @@ export default {
     },
     methods: {
         addTodo() {
-            console.log(this.todo);
             TodoDataService.create(this.todo)
                 .then(response => {
                     this.todo = response.data;
-                    console.log(response.data);
+                    this.todo.project_id = response.data.projectId;
                     this.$emit('addNewTodo', this.todo);
                     this.submitted = true;
                 })
@@ -68,7 +72,7 @@ export default {
                 id: null,
                 project_id: this.projectId,
                 description: "",
-                status: "todo",
+                state: "todo",
             };
         }
     },

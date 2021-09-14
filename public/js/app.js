@@ -20343,10 +20343,9 @@ __webpack_require__.r(__webpack_exports__);
     addTodo: function addTodo() {
       var _this = this;
 
-      console.log(this.todo);
       _services_TodoDataService__WEBPACK_IMPORTED_MODULE_2__["default"].create(this.todo).then(function (response) {
         _this.todo = response.data;
-        console.log(response.data);
+        _this.todo.project_id = response.data.projectId;
 
         _this.$emit('addNewTodo', _this.todo);
 
@@ -20361,7 +20360,7 @@ __webpack_require__.r(__webpack_exports__);
         id: null,
         project_id: this.projectId,
         description: "",
-        status: "todo"
+        state: "todo"
       };
     }
   }
@@ -20679,14 +20678,24 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     todo: {
       id: 0,
-      state: 'todo',
+      state: '',
       description: '',
-      project: Object
+      project_id: 0
     }
+  },
+  data: function data() {
+    return {
+      data: {
+        id: this.todo.id,
+        project_id: this.todo.project_id,
+        description: this.todo.description,
+        state: this.todo.state
+      }
+    };
   },
   methods: {
     toggleStatus: function toggleStatus() {
-      _services_TodoDataService__WEBPACK_IMPORTED_MODULE_0__["default"].update(this.todo).then(function (response) {
+      _services_TodoDataService__WEBPACK_IMPORTED_MODULE_0__["default"].update(this.data).then(function (response) {
         console.log(response.data);
       })["catch"](function (e) {
         console.log(e);
@@ -21218,8 +21227,6 @@ __webpack_require__.r(__webpack_exports__);
       this.activeProject = null;
     },
     addNewTodo: function addNewTodo(todo) {
-      console.log(todo);
-      console.log(this.activeProject.todos);
       this.activeProject.todos.push(todo);
     }
   },
@@ -21275,7 +21282,8 @@ var _hoisted_1 = {
   "class": "submit-form"
 };
 var _hoisted_2 = {
-  key: 0
+  key: 0,
+  "class": "flex"
 };
 var _hoisted_3 = {
   "class": "form-group"
@@ -21288,7 +21296,8 @@ var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 );
 
 var _hoisted_5 = {
-  key: 1
+  key: 1,
+  "class": "flex"
 };
 
 var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", null, "Project is submitted successfully!", -1
@@ -21298,7 +21307,7 @@ var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [!$data.submitted ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
-    "class": "form-control",
+    "class": "form-control m-2",
     id: "name",
     required: "",
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
@@ -21311,13 +21320,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[1] || (_cache[1] = function () {
       return $options.saveProject && $options.saveProject.apply($options, arguments);
     }),
-    "class": "btn btn-success"
+    "class": "m-auto mr-2 text-red-700"
   }, "Submit")])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    "class": "btn btn-success",
+    "class": "m-auto mr-2 text-red-700",
     onClick: _cache[2] || (_cache[2] = function () {
       return $options.newProject && $options.newProject.apply($options, arguments);
     })
-  }, "Add")]))]);
+  }, "Create new")]))]);
 }
 
 /***/ }),
@@ -21339,33 +21348,33 @@ var _hoisted_1 = {
   "class": "card"
 };
 var _hoisted_2 = {
-  key: 0
+  key: 0,
+  "class": "flex"
 };
 var _hoisted_3 = {
   "class": "form-group"
 };
 
 var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "class": "m-2",
   "for": "description"
 }, "Desctiption:", -1
 /* HOISTED */
 );
 
 var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "class": "m-3",
   "for": "state"
 }, "Done", -1
 /* HOISTED */
 );
 
-var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1
-/* HOISTED */
-);
-
-var _hoisted_7 = {
-  key: 1
+var _hoisted_6 = {
+  key: 1,
+  "class": "flex"
 };
 
-var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", null, "Todo is added successfully!", -1
+var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", null, "Todo is added successfully!", -1
 /* HOISTED */
 );
 
@@ -21382,22 +21391,24 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 512
   /* NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.todo.description]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    type: "radio",
+    "class": "m-3",
+    type: "checkbox",
     "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
       return $data.todo.state = $event;
     }),
     id: "state",
-    name: "state",
-    value: "done"
+    "true-value": "done",
+    "false-value": "todo",
+    name: "state"
   }, null, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelRadio, $data.todo.state]]), _hoisted_5, _hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelCheckbox, $data.todo.state]]), _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     onClick: _cache[2] || (_cache[2] = function () {
       return $options.addTodo && $options.addTodo.apply($options, arguments);
     }),
-    "class": "btn btn-success"
-  }, "Submit")])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_7, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    "class": "btn btn-success",
+    "class": "m-auto mr-2 btn btn-success"
+  }, "Submit")])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    "class": "m-auto mr-2 btn btn-success",
     onClick: _cache[3] || (_cache[3] = function () {
       return $options.newTodo && $options.newTodo.apply($options, arguments);
     })
@@ -21695,12 +21706,15 @@ var _hoisted_2 = {
   key: 1,
   "class": "col-6"
 };
-var _hoisted_3 = ["id"];
+var _hoisted_3 = {
+  "class": "form-group"
+};
+var _hoisted_4 = ["id"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
-    "class": "2xl:flex-wrap",
+    "class": "flex",
     key: $props.project.id
-  }, [!$data.editing ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", {
+  }, [!$data.editing ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
     key: 0,
     "class": "col-6 p-2",
     onClick: _cache[0] || (_cache[0] = function () {
@@ -21708,28 +21722,30 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_1, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.project.name), 1
   /* TEXT */
-  )])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.editing ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  )])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.editing ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    type: "text",
+    "class": "form-control",
     id: $props.project.id,
     "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
       return $props.project.name = $event;
     })
   }, null, 8
   /* PROPS */
-  , _hoisted_3), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $props.project.name]])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !$data.editing ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", {
+  , _hoisted_4), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $props.project.name]])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !$data.editing ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", {
     key: 2,
-    "class": "col-end-1 p-2 btn btn-info",
+    "class": "mr-2 m-auto p-2 btn btn-info",
     onClick: _cache[2] || (_cache[2] = function () {
       return $options.edit && $options.edit.apply($options, arguments);
     })
   }, "Edit")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.editing ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", {
     key: 3,
-    "class": "col-end-1 p-2 btn btn-info",
+    "class": "mr-2 m-auto p-2 btn btn-info",
     onClick: _cache[3] || (_cache[3] = function () {
       return $options.updateProject && $options.updateProject.apply($options, arguments);
     })
   }, "Update")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !$data.editing ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", {
     key: 4,
-    "class": "col-end-1 p-2 btn btn-danger",
+    "class": "mx-2 m-auto p-2 btn btn-danger",
     onClick: _cache[4] || (_cache[4] = function () {
       return $options.deleteProject && $options.deleteProject.apply($options, arguments);
     })
@@ -21788,22 +21804,25 @@ var _hoisted_1 = {
   "class": "flex"
 };
 var _hoisted_2 = {
-  "class": "title"
+  "class": "text-blue-900 m-2"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    type: "radio",
+    "class": "m-3",
+    type: "checkbox",
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
-      return $props.todo.state = $event;
+      return $data.data.state = $event;
     }),
-    name: "todo.id",
-    value: "done",
+    id: "state",
+    "true-value": "done",
+    "false-value": "todo",
+    name: "state",
     onChange: _cache[1] || (_cache[1] = function () {
       return $options.toggleStatus && $options.toggleStatus.apply($options, arguments);
     })
   }, null, 544
   /* HYDRATE_EVENTS, NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelRadio, $props.todo.state]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.todo.description), 1
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelCheckbox, $data.data.state]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.todo.description), 1
   /* TEXT */
   )]);
 }
@@ -23203,9 +23222,9 @@ var TodoDataService = /*#__PURE__*/function () {
   }
 
   _createClass(TodoDataService, [{
-    key: "getAll",
-    value: function getAll() {
-      return _http_common__WEBPACK_IMPORTED_MODULE_0__["default"].get("/todo");
+    key: "getProjectTodos",
+    value: function getProjectTodos(projectId) {
+      return _http_common__WEBPACK_IMPORTED_MODULE_0__["default"].get("/project/".concat(projectId, "/todo"));
     }
   }, {
     key: "create",
@@ -23216,26 +23235,6 @@ var TodoDataService = /*#__PURE__*/function () {
     key: "update",
     value: function update(data) {
       return _http_common__WEBPACK_IMPORTED_MODULE_0__["default"].put("/project/".concat(data.project_id, "/todo/").concat(data.id), data);
-    }
-  }, {
-    key: "delete",
-    value: function _delete(id) {
-      return _http_common__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]("/todo/".concat(id));
-    }
-  }, {
-    key: "getProjectTodos",
-    value: function getProjectTodos(projectId) {
-      return _http_common__WEBPACK_IMPORTED_MODULE_0__["default"].get("/project/".concat(projectId, "/todo"));
-    }
-  }, {
-    key: "createTodo",
-    value: function createTodo(projectId, data) {
-      return _http_common__WEBPACK_IMPORTED_MODULE_0__["default"].post("/todo/".concat(projectId), data);
-    }
-  }, {
-    key: "updateTodo",
-    value: function updateTodo(projectId, data) {
-      return _http_common__WEBPACK_IMPORTED_MODULE_0__["default"].put("/todo/".concat(projectId, "/"), data);
     }
   }]);
 

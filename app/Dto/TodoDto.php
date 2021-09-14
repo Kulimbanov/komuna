@@ -2,6 +2,7 @@
 
 namespace App\Dto;
 
+use App\Models\Todo;
 use App\Traits\Jsonable;
 
 class TodoDto
@@ -12,6 +13,16 @@ class TodoDto
     private int $projectId;
     private string $description;
     private string $state;
+
+    public function fromModel(Todo $todo): self
+    {
+        $this->id = $todo->id;
+        $this->projectId = $todo->project_id;
+        $this->description = $todo->description;
+        $this->state = $todo->state;
+
+        return $this;
+    }
 
     public function getId(): ?int
     {

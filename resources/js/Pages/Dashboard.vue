@@ -128,12 +128,8 @@ export default {
             this.activeProject = null;
         },
         addNewTodo(todo) {
-            console.log(todo);
-            console.log(this.activeProject.todos);
             this.activeProject.todos.push(todo);
         }
-
-
     },
     created() {
         this.readProjects();

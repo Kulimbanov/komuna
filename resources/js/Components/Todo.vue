@@ -1,7 +1,14 @@
 <template>
     <div class="flex">
-        <input type="radio" v-model="todo.state" name="todo.id" value="done" @change="toggleStatus"/>
-        <div class="title">{{ todo.description }}</div>
+        <input class="m-3"
+               type="checkbox"
+               v-model="data.state"
+               id="state"
+               true-value="done"
+               false-value="todo"
+               name="state"
+               @change="toggleStatus"/>
+        <div class="text-blue-900 m-2">{{ todo.description }}</div>
     </div>
 </template>
 
@@ -14,14 +21,24 @@ export default {
     props: {
         todo: {
             id: 0,
-            state: 'todo',
+            state: '',
             description: '',
-            project: Object,
+            project_id: 0,
+        }
+    },
+    data() {
+        return {
+            data: {
+                id: this.todo.id,
+                project_id: this.todo.project_id,
+                description: this.todo.description,
+                state: this.todo.state,
+            }
         }
     },
     methods: {
         toggleStatus() {
-            TodoDataService.update(this.todo)
+            TodoDataService.update(this.data)
                 .then(response => {
                     console.log(response.data);
                 })

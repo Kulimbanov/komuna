@@ -26,11 +26,11 @@ class TodoController extends Controller
 
     public function store(TodoCreate $request)
     {
-        $this->todoService->saveProjectTodo($request->getTodoDto());
+        return $this->todoService->saveProjectTodo($request->getTodoDto())->jsonSerialize();
     }
 
     public function update(TodoUpdate $request)
     {
-        $this->todoService->saveProjectTodo($request->getTodoDto());
+        return $this->todoService->saveProjectTodo($request->getTodoDto())->jsonSerialize();
     }
 }

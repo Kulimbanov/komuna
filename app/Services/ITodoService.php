@@ -9,5 +9,5 @@ interface ITodoService
 {
     public function getProjectTodos(int $projectId): Collection;
 
-    public function saveProjectTodo(TodoDto $todoDto);
+    public function saveProjectTodo(TodoDto $todoDto): TodoDto;
 }
