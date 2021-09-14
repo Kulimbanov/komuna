@@ -20,7 +20,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware(['api'])->group(function () {
-    Route::resource('project', ProjectController::class);
-    Route::resource('project.todo', TodoController::class);
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::resource('project', ProjectController::class)
+         ->only(['index', 'store', 'update', 'destroy']);
+    Route::resource('project.todo', TodoController::class)
+         ->only(['index', 'store', 'update']);
 });

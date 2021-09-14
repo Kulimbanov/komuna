@@ -49,7 +49,6 @@
 <script>
 import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue'
 import {Head} from '@inertiajs/inertia-vue3';
-import {usePage} from '@inertiajs/inertia-vue3'
 
 import AddProject from "@/Components/AddProject";
 import Project from "@/Components/Project";
@@ -77,27 +76,18 @@ export default {
     },
     methods: {
         readProjects() {
-            // axios.get('/sanctum/csrf-cookie').then(response => {
-            //     console.log(response.data);
-            //     axios.post('/login', this.formData).then(response => {
-            //         console.log('User signed in!');
-
-            ProjectDataService.getAll(usePage().props.value.auth.user.id)
+            ProjectDataService.getAll()
                 .then((response) => {
                     this.projects = response.data;
-                    console.log(response.data);
                     this.loading = false;
                 })
                 .catch(e => {
                     console.log(e);
                 });
-            //     }).catch(error => console.log(error)); // credentials didn't match
-            // });
         },
         updateProject(project) {
-            console.log('updateProject');
             ProjectDataService.update(project.id, project)
-                .then((response) => {
+                .then(() => {
                     this.readProjects();
                 })
                 .catch(e => {
@@ -106,7 +96,7 @@ export default {
         },
         deleteProject(projectId) {
             ProjectDataService.delete(projectId)
-                .then((response) => {
+                .then(() => {
                     this.readProjects();
                 })
                 .catch(e => {
@@ -118,7 +108,6 @@ export default {
             TodoDataService.getProjectTodos(projectId)
                 .then((response) => {
                     this.activeProject.todos = response.data;
-                    console.log(response.data);
                 })
                 .catch(e => {
                     console.log(e);

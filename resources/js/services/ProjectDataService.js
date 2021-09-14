@@ -1,8 +1,8 @@
 import http from "../http-common";
 
 class ProjectDataService {
-    getAll(userId) {
-        return http.get("/project?userId=" + userId);
+    getAll() {
+        return http.get("/project");
     }
 
     create(data) {

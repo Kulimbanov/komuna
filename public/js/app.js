@@ -20271,9 +20271,6 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
-  computed: function computed() {
-    console.log(this.userId);
-  },
   methods: {
     saveProject: function saveProject() {
       var _this = this;
@@ -20284,7 +20281,6 @@ __webpack_require__.r(__webpack_exports__);
       };
       _services_ProjectDataService__WEBPACK_IMPORTED_MODULE_0__["default"].create(data).then(function (response) {
         _this.project.id = response.data.id;
-        console.log(response.data);
 
         _this.$emit('reloadProjects');
 
@@ -20695,9 +20691,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     toggleStatus: function toggleStatus() {
-      _services_TodoDataService__WEBPACK_IMPORTED_MODULE_0__["default"].update(this.data).then(function (response) {
-        console.log(response.data);
-      })["catch"](function (e) {
+      _services_TodoDataService__WEBPACK_IMPORTED_MODULE_0__["default"].update(this.data)["catch"](function (e) {
         console.log(e);
       });
     }
@@ -21157,7 +21151,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     Project: _Components_Project__WEBPACK_IMPORTED_MODULE_3__["default"],
@@ -21178,24 +21171,17 @@ __webpack_require__.r(__webpack_exports__);
     readProjects: function readProjects() {
       var _this = this;
 
-      // axios.get('/sanctum/csrf-cookie').then(response => {
-      //     console.log(response.data);
-      //     axios.post('/login', this.formData).then(response => {
-      //         console.log('User signed in!');
-      _services_ProjectDataService__WEBPACK_IMPORTED_MODULE_6__["default"].getAll((0,_inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_1__.usePage)().props.value.auth.user.id).then(function (response) {
+      _services_ProjectDataService__WEBPACK_IMPORTED_MODULE_6__["default"].getAll().then(function (response) {
         _this.projects = response.data;
-        console.log(response.data);
         _this.loading = false;
       })["catch"](function (e) {
         console.log(e);
-      }); //     }).catch(error => console.log(error)); // credentials didn't match
-      // });
+      });
     },
     updateProject: function updateProject(project) {
       var _this2 = this;
 
-      console.log('updateProject');
-      _services_ProjectDataService__WEBPACK_IMPORTED_MODULE_6__["default"].update(project.id, project).then(function (response) {
+      _services_ProjectDataService__WEBPACK_IMPORTED_MODULE_6__["default"].update(project.id, project).then(function () {
         _this2.readProjects();
       })["catch"](function (e) {
         console.log(e);
@@ -21204,7 +21190,7 @@ __webpack_require__.r(__webpack_exports__);
     deleteProject: function deleteProject(projectId) {
       var _this3 = this;
 
-      _services_ProjectDataService__WEBPACK_IMPORTED_MODULE_6__["default"]["delete"](projectId).then(function (response) {
+      _services_ProjectDataService__WEBPACK_IMPORTED_MODULE_6__["default"]["delete"](projectId).then(function () {
         _this3.readProjects();
       })["catch"](function (e) {
         console.log(e);
@@ -21218,7 +21204,6 @@ __webpack_require__.r(__webpack_exports__);
       });
       _services_TodoDataService__WEBPACK_IMPORTED_MODULE_7__["default"].getProjectTodos(projectId).then(function (response) {
         _this4.activeProject.todos = response.data;
-        console.log(response.data);
       })["catch"](function (e) {
         console.log(e);
       });
@@ -23169,8 +23154,8 @@ var ProjectDataService = /*#__PURE__*/function () {
 
   _createClass(ProjectDataService, [{
     key: "getAll",
-    value: function getAll(userId) {
-      return _http_common__WEBPACK_IMPORTED_MODULE_0__["default"].get("/project?userId=" + userId);
+    value: function getAll() {
+      return _http_common__WEBPACK_IMPORTED_MODULE_0__["default"].get("/project");
     }
   }, {
     key: "create",

@@ -23,7 +23,7 @@ class ProjectController extends Controller
 
     public function index(Request $request): JsonResponse
     {
-        $projects = $this->projectService->getByUser($request->get('userId'));
+        $projects = $this->projectService->getByUser($request->user()->id);
 
         return response()->json($projects);
     }

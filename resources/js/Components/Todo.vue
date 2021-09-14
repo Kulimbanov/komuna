@@ -39,9 +39,6 @@ export default {
     methods: {
         toggleStatus() {
             TodoDataService.update(this.data)
-                .then(response => {
-                    console.log(response.data);
-                })
                 .catch(e => {
                     console.log(e);
                 });

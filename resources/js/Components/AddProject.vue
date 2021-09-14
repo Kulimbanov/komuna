@@ -41,9 +41,6 @@ export default {
             }
         }
     },
-    computed() {
-        console.log(this.userId);
-    },
     methods: {
         saveProject() {
             var data = {
@@ -53,7 +50,6 @@ export default {
             ProjectDataService.create(data)
                 .then(response => {
                     this.project.id = response.data.id;
-                    console.log(response.data);
                     this.$emit('reloadProjects');
                     this.submitted = true;
                 })
